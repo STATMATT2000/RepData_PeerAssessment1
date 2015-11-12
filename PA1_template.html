@@ -212,7 +212,7 @@ if(!file.exists(&quot;./data/activity.zip&quot;))
 date()
 </code></pre>
 
-<pre><code>## [1] &quot;Thu Nov 12 14:39:14 2015&quot;
+<pre><code>## [1] &quot;Thu Nov 12 17:45:53 2015&quot;
 </code></pre>
 
 <p>check if file is present and unzip  </p>
@@ -382,7 +382,7 @@ total.steps.per.day
 <ol>
 <li> Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)<br/>
 REFERENCE<br/>
-<a href="http://stackoverflow.com/questions/12196539/ggplot-change-line-width">http://stackoverflow.com/questions/12196539/ggplot-change-line-width</a><br/>
+<a href="http://stackoverflow.com/questions/12196539/ggplot-change-line-width">ggplot Change Line Width</a><br/>
 Group data by interval, summarize average steps, and plot</li>
 </ol>
 
@@ -430,8 +430,8 @@ ggp + geom_line(aes(size=1), colour = &quot;darkgreen&quot;) +
 <li> Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example you could use the mean/median for that day or the mean for that 5 minute interval.<br/>
 Here I have chosen to calculate the mean for the 5 minute interval and replace NA&#39;s with the mean.<br/>
 Reference:<br/>
-<a href="http://stackoverflow.com/questions/21714867/replace-na-in-a-dplyr-chain">http://stackoverflow.com/questions/21714867/replace-na-in-a-dplyr-chain</a><br/>
-<a href="http://stackoverflow.com/questions/21841146/is-there-an-r-dplyr-method-for-merge-with-all-true">http://stackoverflow.com/questions/21841146/is-there-an-r-dplyr-method-for-merge-with-all-true</a><br/></li>
+<a href="http://stackoverflow.com/questions/21714867/replace-na-in-a-dplyr-chain">Replace NA in a dplyr Chain</a><br/>
+<a href="http://stackoverflow.com/questions/21841146/is-there-an-r-dplyr-method-for-merge-with-all-true">dplyr Method for Merge with all True</a><br/></li>
 </ol>
 
 <pre><code class="r">ACT.interval &lt;- ACT %&gt;% 

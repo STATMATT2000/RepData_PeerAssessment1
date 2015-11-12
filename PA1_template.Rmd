@@ -98,7 +98,7 @@ total.steps.per.day
 
 1.  Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)  
 REFERENCE   
-http://stackoverflow.com/questions/12196539/ggplot-change-line-width  
+[ggplot Change Line Width](http://stackoverflow.com/questions/12196539/ggplot-change-line-width)  
 Group data by interval, summarize average steps, and plot
 
 ```{r, echo=TRUE}
@@ -135,8 +135,8 @@ sum(is.na(ACT))
 2.  Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example you could use the mean/median for that day or the mean for that 5 minute interval.  
 Here I have chosen to calculate the mean for the 5 minute interval and replace NA's with the mean.  
 Reference:  
-http://stackoverflow.com/questions/21714867/replace-na-in-a-dplyr-chain  
-http://stackoverflow.com/questions/21841146/is-there-an-r-dplyr-method-for-merge-with-all-true    
+[Replace NA in a dplyr Chain](http://stackoverflow.com/questions/21714867/replace-na-in-a-dplyr-chain)  
+[dplyr Method for Merge with all True](http://stackoverflow.com/questions/21841146/is-there-an-r-dplyr-method-for-merge-with-all-true)    
 ```{r}
 ACT.interval <- ACT %>% 
         group_by(interval) %>% 
