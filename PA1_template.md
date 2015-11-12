@@ -20,7 +20,7 @@ date()
 ```
 
 ```
-## [1] "Thu Nov 12 17:45:53 2015"
+## [1] "Thu Nov 12 18:42:07 2015"
 ```
 
 check if file is present and unzip  
@@ -31,13 +31,17 @@ list.files("./data")
 ```
 
 ```
-## [1] "activity.csv" "activity.zip"
+## [1] "activity.zip"
 ```
 
 ```r
 if(length(list.files("./data"))==1)
 {unzip("./data/activity.zip", exdir="./data")
  list.files("./data")}
+```
+
+```
+## [1] "activity.csv" "activity.zip"
 ```
 
 1.  Load the data (i.e. read.csv())  
@@ -173,7 +177,7 @@ ggp + geom_histogram(binwidth = 1200, colour = "darkgreen", aes(fill = ..count..
         ggtitle("Histogram of \n Total Number of Steps per Day")
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
+![plot of chunk initial_histogram](figure/initial_histogram-1.png) 
 
 3.  Calculate and report the mean and median of the total number of steps taken per day
 
@@ -214,7 +218,7 @@ ggp + geom_line(aes(size=1), colour = "darkgreen") +
         ggtitle("Time Series Plot of the Average Number \n of Steps Taken, Averaged Accross All Days")
 ```
 
-![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png) 
+![plot of chunk activity_pattern](figure/activity_pattern-1.png) 
 
 2.  Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -329,7 +333,7 @@ ggp + geom_histogram(binwidth = 1200, colour = "darkgreen", aes(fill = ..count..
         ggtitle("Histogram of Imputed\n Total Number of Steps per Day")
 ```
 
-![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
+![plot of chunk second_histogram](figure/second_histogram-1.png) 
 
 - Calculate and report the **mean** and **median** total number of steps taken per day. 
 
@@ -404,4 +408,4 @@ ggp + facet_grid(wday~.) +
          title = "Time Series Plot of the Average Number\n of Steps Taken, Averaged Accross All Days")
 ```
 
-![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png) 
+![plot of chunk panel_plot](figure/panel_plot-1.png) 
