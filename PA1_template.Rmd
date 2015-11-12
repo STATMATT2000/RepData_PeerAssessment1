@@ -29,34 +29,34 @@ if(length(list.files("./data"))==1)
 
 1.  Load the data (i.e. read.csv())  
 Check if file is already in the global environment
-        ```{r}
-        if(!(c("ACT") %in% ls())){
-          ACT <- read.csv("./data/activity.csv", stringsAsFactors = FALSE)
-          str(ACT)}
-        ```
+```{r}
+if(!(c("ACT") %in% ls())){
+  ACT <- read.csv("./data/activity.csv", stringsAsFactors = FALSE)
+  str(ACT)}
+```
 
 2.  Process / transform the data (if necessary) into a format suitable for your analysis
 
-        ```{r}
-        library(dplyr)
-        library(ggplot2)
-        ACT <- tbl_df(ACT)
-        ACT <- ACT %>%
-                mutate(wday = factor(
-                        ifelse(
-                                substr(
-                                        weekdays(
-                                                as.POSIXct(
-                                                        strptime(date, "%Y-%m-%d")
-                                                        )
-                                                ),
-                                        1,1)
-                                =="S",
-                                "Weekend", 
-                                "Weekday"), 
-                        levels = c("Weekend", "Weekday")))
-        str(ACT)
-        ```
+```{r}
+library(dplyr)
+library(ggplot2)
+ACT <- tbl_df(ACT)
+ACT <- ACT %>%
+        mutate(wday = factor(
+                ifelse(
+                        substr(
+                                weekdays(
+                                        as.POSIXct(
+                                                strptime(date, "%Y-%m-%d")
+                                                )
+                                        ),
+                                1,1)
+                        =="S",
+                        "Weekend", 
+                        "Weekday"), 
+                levels = c("Weekend", "Weekday")))
+str(ACT)
+```
 
 
 
@@ -66,33 +66,32 @@ Check if file is already in the global environment
 1.  Calculate the total number of steps taken per day.  
 Group data by date and summarize steps. I chose not to use na.rm in the sum function because it sets the missing values to zero which is not the same as ignoring them.
 
-        ```{r, echo=TRUE}
-        ACT.bydate <- ACT %>% group_by(date) %>% summarize(totalsteps = sum(steps))
-        as.data.frame(ACT.bydate)
-        ```
+```{r, echo=TRUE}
+ACT.bydate <- ACT %>% group_by(date) %>% summarize(totalsteps = sum(steps))
+as.data.frame(ACT.bydate)
+```
 
 2.  Make a histogram of the total number of steps taken each day
 
-        ```{r, echo=TRUE}
-        ggp <- ggplot(ACT.bydate, aes(x=totalsteps))
-        ggp + geom_histogram(binwidth = 1200, colour = "darkgreen", aes(fill = ..count..)) +
-                scale_fill_gradient("Count", low = "green", high = "blue") + 
-                theme_bw() + 
-                xlab("Total Number of Steps") +
-                ylab("Count") +
-                ggtitle("Histogram of\n Total Number of Steps per Day")
-        ```
+```{r, echo=TRUE}
+ggp <- ggplot(ACT.bydate, aes(x=totalsteps))
+ggp + geom_histogram(binwidth = 1200, colour = "darkgreen", aes(fill = ..count..)) +
+        scale_fill_gradient("Count", low = "green", high = "blue") + 
+        theme_bw() + 
+        xlab("Total Number of Steps") +
+        ylab("Count") +
+        ggtitle("Histogram of \n Total Number of Steps per Day")
+```
 
 3.  Calculate and report the mean and median of the total number of steps taken per day
-        ```{r}
-        total.steps.per.day <- rbind(mean(ACT.bydate$totalsteps, na.rm = TRUE),
-                                     median(ACT.bydate$totalsteps, na.rm = TRUE))
-        row.names(total.steps.per.day) <- c("Mean", "Median")
-        colnames(total.steps.per.day) <- "Total Steps Per Day"
-        total.steps.per.day
-        ```
 
-
+```{r}
+total.steps.per.day <- rbind(mean(ACT.bydate$totalsteps, na.rm = TRUE),
+                             median(ACT.bydate$totalsteps, na.rm = TRUE))
+row.names(total.steps.per.day) <- c("Mean", "Median")
+colnames(total.steps.per.day) <- "Total Steps Per Day"
+total.steps.per.day
+```
 
 
 ## What is the average daily activity pattern?
@@ -102,25 +101,25 @@ REFERENCE
 http://stackoverflow.com/questions/12196539/ggplot-change-line-width  
 Group data by interval, summarize average steps, and plot
 
-        ```{r, echo=TRUE}
-        ACT.byinterval <- ACT %>% 
-                group_by(interval) %>% 
-                summarize(activity.pattern = mean(steps, na.rm = TRUE))
-        ggp <- ggplot(ACT.byinterval, aes(x=interval, y = activity.pattern))
-        ggp + geom_line(aes(size=1), colour = "darkgreen") +
-                theme_bw() +
-                scale_size(range = c(.10, 1.5), guide = FALSE) +
-                xlab("5-Minute Interval") +
-                ylab("Average Daily Activity Pattern") +
-                ggtitle("Time Series Plot of the Average Number\n of Steps Taken, Averaged Accross All Days")
-        ```
+```{r, echo=TRUE}
+ACT.byinterval <- ACT %>% 
+        group_by(interval) %>% 
+        summarize(activity.pattern = mean(steps, na.rm = TRUE))
+ggp <- ggplot(ACT.byinterval, aes(x=interval, y = activity.pattern))
+ggp + geom_line(aes(size=1), colour = "darkgreen") +
+        theme_bw() +
+        scale_size(range = c(.10, 1.5), guide = FALSE) +
+        xlab("5-Minute Interval") +
+        ylab("Average Daily Activity Pattern") +
+        ggtitle("Time Series Plot of the Average Number \n of Steps Taken, Averaged Accross All Days")
+```
 
 2.  Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
-        ```{r}
-        as.data.frame(ACT.byinterval[ACT.byinterval$activity.pattern==
-                                             max(ACT.byinterval$activity.pattern, na.rm=TRUE),1])
-        ```
+```{r}
+as.data.frame(ACT.byinterval[ACT.byinterval$activity.pattern==
+                                     max(ACT.byinterval$activity.pattern, na.rm=TRUE),1])
+```
 
 
 
@@ -128,44 +127,45 @@ Group data by interval, summarize average steps, and plot
 Note there are a number of days/intervals where there are missing values(coded as "NA"). The presence of missing days may introduce bias into some calculations or summaries of the data.
 
 1.  Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NA's)
-        ```{r}
-        sum(is.na(ACT))
-        ```
+
+```{r}
+sum(is.na(ACT))
+```
 
 2.  Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example you could use the mean/median for that day or the mean for that 5 minute interval.  
 Here I have chosen to calculate the mean for the 5 minute interval and replace NA's with the mean.  
 Reference:  
 http://stackoverflow.com/questions/21714867/replace-na-in-a-dplyr-chain  
 http://stackoverflow.com/questions/21841146/is-there-an-r-dplyr-method-for-merge-with-all-true    
-        ```{r}
-        ACT.interval <- ACT %>% 
-                group_by(interval) %>% 
-                        summarize(mean.act = mean(steps, na.rm = TRUE))
-        ```
+```{r}
+ACT.interval <- ACT %>% 
+        group_by(interval) %>% 
+                summarize(mean.act = mean(steps, na.rm = TRUE))
+```
 
 3.  Create a new dataset that is equal to the original dataset but with the missing data filled in
 
-        ```{r}
-        ACT
-        ACT2 <- full_join(ACT, ACT.interval) %>%
-               mutate(steps = ifelse(is.na(steps), mean.act, steps)) %>%
-               select(-mean.act)
-        ACT2
-        ```
+```{r}
+ACT
+ACT2 <- full_join(ACT, ACT.interval) %>%
+       mutate(steps = ifelse(is.na(steps), mean.act, steps)) %>%
+       select(-mean.act)
+ACT2
+```
  
 4.  Make a histogram of the total number of steps taken each day. 
 
-        ```{r, echo=TRUE}
-        ACT2.bydate <- ACT2 %>% group_by(date) %>% summarize(totalsteps = sum(steps))
-        
-        ggp <- ggplot(ACT2.bydate, aes(x=totalsteps))
-        ggp + geom_histogram(binwidth = 1200, colour = "darkgreen", aes(fill = ..count..)) +
-                scale_fill_gradient("Count", low = "green", high = "blue") + 
-                theme_bw() + 
-                xlab("Total Number of Steps") +
-                ylab("Count") +
-                ggtitle(" Histogram of Imputed\n Total Number of Steps per Day")
-        ```
+```{r, echo=TRUE}
+ACT2.bydate <- ACT2 %>% group_by(date) %>% summarize(totalsteps = sum(steps))
+
+ggp <- ggplot(ACT2.bydate, aes(x=totalsteps))
+ggp + geom_histogram(binwidth = 1200, colour = "darkgreen", aes(fill = ..count..)) +
+        scale_fill_gradient("Count", low = "green", high = "blue") + 
+        theme_bw() + 
+        xlab("Total Number of Steps") +
+        ylab("Count") +
+        ggtitle("Histogram of Imputed\n Total Number of Steps per Day")
+```
 
 - Calculate and report the **mean** and **median** total number of steps taken per day. 
 ```{r}
@@ -191,9 +191,9 @@ Use the dataset with the filled-in missing values for this part.
 
 1.  Create a new factor variable in the dataset with two levels "weekday" and "weekend" indicating whether a given date is a weekday or a weekend day.
 
-        ```{r, echo=TRUE}
-        str(ACT2)
-        ```
+```{r, echo=TRUE}
+str(ACT2)
+```
 
 2.  Make a panel plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
@@ -210,5 +210,5 @@ ggp + facet_grid(wday~.) +
               strip.background = element_rect(fill="lightblue", colour = "black", size = 1)) + 
         labs(x="5-Minute Interval", 
          y="Average Daily Activity Pattern",
-         title = " Time Series Plot of the Average Number\n of Steps Taken, Averaged Accross All Days")
+         title = "Time Series Plot of the Average Number\n of Steps Taken, Averaged Accross All Days")
 ```
