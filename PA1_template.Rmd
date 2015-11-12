@@ -80,7 +80,7 @@ Group data by date and summarize steps. I chose not to use na.rm in the sum func
                 theme_bw() + 
                 xlab("Total Number of Steps") +
                 ylab("Count") +
-                ggtitle("Histogram of \n Total Number of Steps per Day")
+                ggtitle("Histogram of\n Total Number of Steps per Day")
         ```
 
 3.  Calculate and report the mean and median of the total number of steps taken per day
@@ -112,7 +112,7 @@ Group data by interval, summarize average steps, and plot
                 scale_size(range = c(.10, 1.5), guide = FALSE) +
                 xlab("5-Minute Interval") +
                 ylab("Average Daily Activity Pattern") +
-                ggtitle("Time Series Plot of the Average Number \n of Steps Taken, Averaged Accross All Days")
+                ggtitle("Time Series Plot of the Average Number\n of Steps Taken, Averaged Accross All Days")
         ```
 
 2.  Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
@@ -164,7 +164,7 @@ http://stackoverflow.com/questions/21841146/is-there-an-r-dplyr-method-for-merge
                 theme_bw() + 
                 xlab("Total Number of Steps") +
                 ylab("Count") +
-                ggtitle("Histogram of Imputed \n Total Number of Steps per Day")
+                ggtitle(" Histogram of Imputed\n Total Number of Steps per Day")
         ```
 
 - Calculate and report the **mean** and **median** total number of steps taken per day. 
@@ -197,18 +197,18 @@ Use the dataset with the filled-in missing values for this part.
 
 2.  Make a panel plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
-        ```{r}
-        ACT2.interval <- ACT2 %>% 
-                group_by(interval, wday) %>% 
-                        summarize(mean.act = mean(steps))
-        
-        ggp <- ggplot(ACT2.interval, aes(x = interval, y = mean.act, group = wday))
-        ggp + facet_grid(wday~.) + 
-                geom_line(lwd = 1, colour = "darkgreen") + 
-                theme_bw() + 
-                theme(strip.text = element_text(face="bold", size=rel(1.5)), 
-                      strip.background = element_rect(fill="lightblue", colour = "black", size = 1)) + 
-                labs(x="5-Minute Interval", 
-                 y="Average Daily Activity Pattern",
-                 title = "Time Series Plot of the Average Number \n of Steps Taken, Averaged Accross All Days")
-        ```
+```{r}
+ACT2.interval <- ACT2 %>% 
+        group_by(interval, wday) %>% 
+                summarize(mean.act = mean(steps))
+
+ggp <- ggplot(ACT2.interval, aes(x = interval, y = mean.act, group = wday))
+ggp + facet_grid(wday~.) + 
+        geom_line(lwd = 1, colour = "darkgreen") + 
+        theme_bw() + 
+        theme(strip.text = element_text(face="bold", size=rel(1.5)), 
+              strip.background = element_rect(fill="lightblue", colour = "black", size = 1)) + 
+        labs(x="5-Minute Interval", 
+         y="Average Daily Activity Pattern",
+         title = " Time Series Plot of the Average Number\n of Steps Taken, Averaged Accross All Days")
+```

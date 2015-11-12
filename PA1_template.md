@@ -20,7 +20,7 @@ date()
 ```
 
 ```
-## [1] "Thu Nov 12 13:59:38 2015"
+## [1] "Thu Nov 12 14:22:47 2015"
 ```
 
 check if file is present and unzip  
@@ -31,17 +31,13 @@ list.files("./data")
 ```
 
 ```
-## [1] "activity.zip"
+## [1] "activity.csv" "activity.zip"
 ```
 
 ```r
 if(length(list.files("./data"))==1)
 {unzip("./data/activity.zip", exdir="./data")
  list.files("./data")}
-```
-
-```
-## [1] "activity.csv" "activity.zip"
 ```
 
 1.  Load the data (i.e. read.csv())  
@@ -52,35 +48,12 @@ Check if file is already in the global environment
           ACT <- read.csv("./data/activity.csv", stringsAsFactors = FALSE)
           str(ACT)}
         ```
-        
-        ```
-        ## 'data.frame':	17568 obs. of  3 variables:
-        ##  $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
-        ##  $ date    : chr  "2012-10-01" "2012-10-01" "2012-10-01" "2012-10-01" ...
-        ##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
-        ```
 
 2.  Process / transform the data (if necessary) into a format suitable for your analysis
 
         
         ```r
         library(dplyr)
-        ```
-        
-        ```
-        ## 
-        ## Attaching package: 'dplyr'
-        ## 
-        ## The following objects are masked from 'package:stats':
-        ## 
-        ##     filter, lag
-        ## 
-        ## The following objects are masked from 'package:base':
-        ## 
-        ##     intersect, setdiff, setequal, union
-        ```
-        
-        ```r
         library(ggplot2)
         ACT <- tbl_df(ACT)
         ACT <- ACT %>%
@@ -197,7 +170,7 @@ Group data by date and summarize steps. I chose not to use na.rm in the sum func
                 theme_bw() + 
                 xlab("Total Number of Steps") +
                 ylab("Count") +
-                ggtitle("Histogram of \n Total Number of Steps per Day")
+                ggtitle("Histogram of\n Total Number of Steps per Day")
         ```
         
         ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
@@ -239,7 +212,7 @@ Group data by interval, summarize average steps, and plot
                 scale_size(range = c(.10, 1.5), guide = FALSE) +
                 xlab("5-Minute Interval") +
                 ylab("Average Daily Activity Pattern") +
-                ggtitle("Time Series Plot of the Average Number \n of Steps Taken, Averaged Accross All Days")
+                ggtitle("Time Series Plot of the Average Number\n of Steps Taken, Averaged Accross All Days")
         ```
         
         ![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png) 
@@ -353,7 +326,7 @@ http://stackoverflow.com/questions/21841146/is-there-an-r-dplyr-method-for-merge
                 theme_bw() + 
                 xlab("Total Number of Steps") +
                 ylab("Count") +
-                ggtitle("Histogram of Imputed \n Total Number of Steps per Day")
+                ggtitle(" Histogram of Imputed\n Total Number of Steps per Day")
         ```
         
         ![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
@@ -414,21 +387,21 @@ Use the dataset with the filled-in missing values for this part.
 
 2.  Make a panel plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
-        
-        ```r
-        ACT2.interval <- ACT2 %>% 
-                group_by(interval, wday) %>% 
-                        summarize(mean.act = mean(steps))
-        
-        ggp <- ggplot(ACT2.interval, aes(x = interval, y = mean.act, group = wday))
-        ggp + facet_grid(wday~.) + 
-                geom_line(lwd = 1, colour = "darkgreen") + 
-                theme_bw() + 
-                theme(strip.text = element_text(face="bold", size=rel(1.5)), 
-                      strip.background = element_rect(fill="lightblue", colour = "black", size = 1)) + 
-                labs(x="5-Minute Interval", 
-                 y="Average Daily Activity Pattern",
-                 title = "Time Series Plot of the Average Number \n of Steps Taken, Averaged Accross All Days")
-        ```
-        
-        ![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png) 
+
+```r
+ACT2.interval <- ACT2 %>% 
+        group_by(interval, wday) %>% 
+                summarize(mean.act = mean(steps))
+
+ggp <- ggplot(ACT2.interval, aes(x = interval, y = mean.act, group = wday))
+ggp + facet_grid(wday~.) + 
+        geom_line(lwd = 1, colour = "darkgreen") + 
+        theme_bw() + 
+        theme(strip.text = element_text(face="bold", size=rel(1.5)), 
+              strip.background = element_rect(fill="lightblue", colour = "black", size = 1)) + 
+        labs(x="5-Minute Interval", 
+         y="Average Daily Activity Pattern",
+         title = " Time Series Plot of the Average Number\n of Steps Taken, Averaged Accross All Days")
+```
+
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png) 
