@@ -20,7 +20,7 @@ date()
 ```
 
 ```
-## [1] "Thu Nov 12 18:42:07 2015"
+## [1] "Thu Nov 12 19:00:35 2015"
 ```
 
 check if file is present and unzip  
@@ -53,11 +53,34 @@ if(!(c("ACT") %in% ls())){
   str(ACT)}
 ```
 
+```
+## 'data.frame':	17568 obs. of  3 variables:
+##  $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ date    : chr  "2012-10-01" "2012-10-01" "2012-10-01" "2012-10-01" ...
+##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
+```
+
 2.  Process / transform the data (if necessary) into a format suitable for your analysis
 
 
 ```r
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+## 
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 library(ggplot2)
 ACT <- tbl_df(ACT)
 ACT <- ACT %>%
@@ -352,21 +375,13 @@ total.steps.per.day2
 ```
 -  Do these values differ from the estimates from the first part of the assignment?  
 
-```r
-print("Yes, the Median differs")
 ```
-
-```
-## [1] "Yes, the Median differs"
+## [1] "Yes, the Median differs from the first part of the assignment."
 ```
 -  What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-```r
-print("Imputing the missing data by replacing missings with the mean causes the Median to approach the Mean, and in the case of this data, the Median equals the Mean")
 ```
-
-```
-## [1] "Imputing the missing data by replacing missings with the mean causes the Median to approach the Mean, and in the case of this data, the Median equals the Mean"
+## [1] "Imputing the missing data by replacing missings with the mean causes the Median to approach the Mean, and in this case, the Median equals the Mean"
 ```
 
 
@@ -409,3 +424,7 @@ ggp + facet_grid(wday~.) +
 ```
 
 ![plot of chunk panel_plot](figure/panel_plot-1.png) 
+
+```
+## [1] "Yes there are differences between weekdays and weekends, it appears people are more active on weekdays"
+```

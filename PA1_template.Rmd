@@ -176,12 +176,12 @@ colnames(total.steps.per.day2) <- "Total Steps Per Day"
 total.steps.per.day2
 ```
 -  Do these values differ from the estimates from the first part of the assignment?  
-```{r differs}
-print("Yes, the Median differs")
+```{r differs, echo=FALSE}
+print("Yes, the Median differs from the first part of the assignment.")
 ```
 -  What is the impact of imputing missing data on the estimates of the total daily number of steps?
-```{r impact}
-print("Imputing the missing data by replacing missings with the mean causes the Median to approach the Mean, and in the case of this data, the Median equals the Mean")
+```{r impact, echo=FALSE}
+print("Imputing the missing data by replacing missings with the mean causes the Median to approach the Mean, and in this case, the Median equals the Mean")
 ```
 
 
@@ -211,4 +211,7 @@ ggp + facet_grid(wday~.) +
         labs(x="5-Minute Interval", 
          y="Average Daily Activity Pattern",
          title = "Time Series Plot of the Average Number\n of Steps Taken, Averaged Accross All Days")
+```
+```{r differences, echo=FALSE}
+print("Yes there are differences between weekdays and weekends, it appears people are more active on weekdays")
 ```
